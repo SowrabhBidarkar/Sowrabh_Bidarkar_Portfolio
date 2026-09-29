@@ -366,7 +366,7 @@ body {
 }
 
 .nav-link:hover, .nav-link.active {
-    color: var(--accent-lavender);
+    color: #00E5FF;
 }
 
 .nav-link:hover::after,
