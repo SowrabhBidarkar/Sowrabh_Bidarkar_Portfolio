@@ -268,31 +268,95 @@ body {
 }
 
 /* Glowing SB glass circle — dark theme */
+/* ── Enhanced SB Logo Circle ── */
 .logo-circle {
     position: relative;
-    width: 44px;
-    height: 44px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(139,114,232,0.30) 0%, rgba(96,165,250,0.15) 100%);
-    border: 1.5px solid rgba(139,114,232,0.50);
+    background: linear-gradient(135deg, rgba(139,114,232,0.40) 0%, rgba(96,165,250,0.25) 100%);
+    border: 2px solid rgba(167,139,250,0.65);
     box-shadow:
-        0 0 0 3px rgba(139,114,232,0.12),
-        0 4px 18px rgba(139,114,232,0.28),
-        inset 0 1px 2px rgba(255,255,255,0.12);
+        0 0 0 4px rgba(139,114,232,0.14),
+        0 0 24px rgba(139,114,232,0.40),
+        0 4px 20px rgba(0,0,0,0.40),
+        inset 0 1px 3px rgba(255,255,255,0.18);
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    transition: box-shadow 0.35s ease, transform 0.35s ease;
+    overflow: visible;
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
     flex-shrink: 0;
+}
+
+/* Spinning ring inside the circle */
+.logo-ring-inner {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(167,139,250,0.45);
+    animation: logo-ring-spin 10s linear infinite;
+    pointer-events: none;
+}
+@keyframes logo-ring-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Two glowing dots riding the inner ring */
+.logo-glow-dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-lavender);
+    box-shadow: 0 0 8px 2px rgba(139,114,232,0.8);
+    pointer-events: none;
+    animation: logo-ring-spin 10s linear infinite;
+}
+.logo-glow-dot--1 {
+    top: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.logo-glow-dot--2 {
+    bottom: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-delay: -5s;
+    background: var(--accent-sage);
+    box-shadow: 0 0 8px 2px rgba(110,231,183,0.8);
 }
 
 .logo-circle:hover {
     box-shadow:
-        0 0 0 5px rgba(139,114,232,0.20),
-        0 8px 30px rgba(139,114,232,0.45),
-        inset 0 1px 2px rgba(255,255,255,0.15);
-    transform: scale(1.08);
+        0 0 0 6px rgba(139,114,232,0.22),
+        0 0 40px rgba(139,114,232,0.60),
+        0 4px 20px rgba(0,0,0,0.50),
+        inset 0 1px 3px rgba(255,255,255,0.20);
+    transform: scale(1.10);
+}
+
+/* Name text beside the circle */
+.logo-name-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    line-height: 1.1;
+}
+.logo-name-main {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    font-style: italic;
+    color: #FFFFFF;
+    letter-spacing: 0.01em;
+}
+.logo-name-sub {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--accent-lavender);
 }
 
 /* Rolling shine sweep */
@@ -1830,67 +1894,118 @@ body {
     transform: translateY(0);
 }
 
-@media (max-width: 992px) {
-    .hero-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .hero-subtitle {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .hero-actions {
-        justify-content: center;
-    }
-
-    .portrait-stage {
-        max-width: 420px;
-        margin: 0 auto;
-    }
+/* ==========================================================================
+   Custom Bootstrap Toggler (hamburger)
+   ========================================================================== */
+.custom-toggler {
+    background: rgba(139,114,232,0.15);
+    border: 1px solid rgba(139,114,232,0.40);
+    border-radius: 8px;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+.custom-toggler:focus { box-shadow: 0 0 0 3px rgba(139,114,232,0.30); outline: none; }
+.custom-toggler:hover { background: rgba(139,114,232,0.28); }
+.toggler-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #FFFFFF;
+    border-radius: 2px;
+    transition: all 0.3s ease;
 }
 
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(13,11,30,0.97);
+/* Bootstrap collapse mobile menu override */
+.navbar-collapse {
+    background: transparent;
+}
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: rgba(10, 8, 28, 0.97);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        flex-direction: column;
-        padding: 24px;
+        border: 1px solid rgba(139,114,232,0.22);
         border-radius: var(--radius-md);
-        box-shadow: var(--shadow-card);
-        border: 1px solid var(--surface-glass-border);
+        padding: 20px 16px;
         margin-top: 12px;
     }
-
-    .nav-links.mobile-open {
-        display: flex;
-    }
-
-    .hamburger-btn {
-        display: block;
-    }
-
-    .section-padding {
-        padding: 60px 0;
-    }
-
-    .contact-box {
-        padding: 28px;
-    }
-
-    .portrait-avatar-container {
-        width: 270px;
-        height: 270px;
-    }
+    .nav-links { flex-direction: column; gap: 6px; }
+    .nav-link  { padding: 10px 12px; border-radius: 8px; font-size: 0.9rem; }
+    .nav-link:hover { background: rgba(139,114,232,0.14); }
+    .nav-actions { padding-top: 12px; border-top: 1px solid rgba(139,114,232,0.18); }
+    .logo-name-wrap { display: none; } /* hide name text on mobile to save space */
 }
 
+/* ==========================================================================
+   Responsive — Bootstrap breakpoints aligned
+   ========================================================================== */
+
+/* ≤ 992px (lg) — stack hero */
+@media (max-width: 992px) {
+    .hero-grid         { text-align: center; }
+    .hero-subtitle     { margin-left: auto; margin-right: auto; }
+    .hero-actions      { justify-content: center; }
+    .hero-visual       { display: flex; justify-content: center; }
+    .portrait-stage    { max-width: 380px; margin: 0 auto; padding: 40px 30px; }
+}
+
+/* ≤ 768px (md) */
+@media (max-width: 768px) {
+    .section-padding   { padding: 60px 0; }
+    .contact-box       { padding: 24px; }
+    .portrait-avatar-container { width: 240px; height: 240px; }
+    .portrait-stage    { min-height: auto; padding: 30px 20px; }
+    .floating-card     { display: none; } /* hide floating cards on small screens */
+    .hero-title        { font-size: clamp(2rem, 8vw, 2.8rem); }
+    .hero-subtitle     { font-size: 1rem; }
+    .section-title     { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+    .about-grid        { grid-template-columns: 1fr; }
+    .contact-action-bar{ flex-direction: column; align-items: center; }
+    .btn-lg            { padding: 12px 20px; font-size: 0.95rem; width: 100%; max-width: 320px; }
+    .hero-actions .btn { width: 100%; justify-content: center; max-width: 320px; }
+    .hero-actions      { flex-direction: column; align-items: center; }
+    .timeline-header   { flex-direction: column; }
+    .philosophy-box    { padding: 24px 16px; }
+    .philosophy-text   { font-size: 1.2rem; }
+    .contact-details-grid { grid-template-columns: 1fr; }
+    .projects-grid     { grid-template-columns: 1fr; }
+    .skills-grid       { grid-template-columns: 1fr; }
+    .cert-grid         { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .education-grid    { grid-template-columns: 1fr; }
+    .navbar-container  { top: 10px; padding: 0 12px; }
+}
+
+/* ≤ 576px (sm) — extra small phones */
+@media (max-width: 576px) {
+    .container         { padding: 0 16px; }
+    .portrait-avatar-container { width: 200px; height: 200px; }
+    .avatar-ring--1    { inset: -10px; }
+    .avatar-ring--2    { inset: -20px; }
+    .avatar-ring--3    { inset: -30px; }
+    .hero-badge        { font-size: 0.75rem; padding: 4px 12px; }
+    .cert-grid         { grid-template-columns: 1fr; }
+    .timeline-item     { padding-left: 40px; }
+    .timeline-content  { padding: 20px; }
+    .edu-card          { padding: 20px; }
+    .editorial-card    { padding: 20px; }
+    .project-card      { padding: 20px; }
+    .section-padding   { padding: 48px 0; }
+    .hero-section      { padding-top: 110px; }
+    .footer            { padding: 24px 0; font-size: 0.78rem; }
+    .logo-name-wrap    { display: none; }
+}
+
+/* ≤ 400px — very small phones (iPhone SE etc.) */
+@media (max-width: 400px) {
+    .portrait-avatar-container { width: 175px; height: 175px; }
+    .hero-title        { font-size: 1.9rem; }
+    .logo-circle       { width: 42px; height: 42px; }
+    .logo-text         { font-size: 0.95rem; }
+}
 
 
 /* ==========================================================================
